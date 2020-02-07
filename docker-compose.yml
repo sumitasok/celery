@@ -1,9 +1,11 @@
-version: '3.1'
+version: '2.2'
 services:
   celery:
-    build: .
-    command: celery -A tasks worker --loglevel=info --logfile=celeryapp.log
-    # command: pwd
+    build:
+      context: .
+      network: host
+    # command: celery -A tasks worker --loglevel=info --logfile=tasks.log
+    command: celery -A proj worker -l info --logfile=celeryapp.log
     volumes: 
       - .:/app
     environment:

@@ -5,7 +5,7 @@ import os
 # The first argument to Celery is the name of the current module. This is only needed so that names can be automatically generated when the tasks are defined in the __main__ module.
 # default queue is Celery.
 app = Celery('tasks',
-    backend=os.environ['PG_CONN_STR'],
+    # backend=os.environ['PG_CONN_STR'],
     broker=os.environ['CELERY_CONN_STR'])
 
 app.conf.update(
