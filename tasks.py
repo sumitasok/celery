@@ -1,6 +1,9 @@
 from celery import Celery
 import os
 
+# Celery is a simple, flexible, and reliable distributed system to process vast amounts of messages, while providing operations with the tools required to maintain such a system.
+# The first argument to Celery is the name of the current module. This is only needed so that names can be automatically generated when the tasks are defined in the __main__ module.
+# default queue is Celery.
 app = Celery('tasks',
     backend=os.environ['PG_CONN_STR'],
     broker=os.environ['CELERY_CONN_STR'])
