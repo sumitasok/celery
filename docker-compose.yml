@@ -2,9 +2,10 @@ version: '3.1'
 services:
   celery:
     build: .
-    command: celery -A tasks worker --loglevel=info 
+    command: celery -A tasks worker --loglevel=info --logfile=celeryapp.log
     # command: pwd
     volumes: 
       - .:/app
     environment:
       CELERY_CONN_STR: "${CELERY_CONN_STR}"
+      PG_CONN_STR: "${PG_CONN_STR}"
