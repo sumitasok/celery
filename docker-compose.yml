@@ -1,13 +1,43 @@
 version: '2.2'
 services:
-  celery:
+  add_task:
+    image: celery_celery
     build:
       context: .
       network: host
     # command: celery -A tasks worker --loglevel=info --logfile=tasks.log
-    command: celery -A proj worker -l info --logfile=celeryapp.log
+    command: celery -A proj worker -Q add_task -l info --max-tasks-per-child 2 # --logfile=celeryapp.log
     volumes: 
       - .:/app
     environment:
       CELERY_CONN_STR: "${CELERY_CONN_STR}"
       PG_CONN_STR: "${PG_CONN_STR}"
+      REDIS_BACKEND: "${REDIS_BACKEND}"
+
+  xsum_task:
+    image: celery_celery
+    build:
+      context: .
+      network: host
+    # command: celery -A tasks worker --loglevel=info --logfile=tasks.log
+    command: celery -A proj worker -Q xsum_task -l info #--logfile=celeryapp.log
+    volumes: 
+      - .:/app
+    environment:
+      CELERY_CONN_STR: "${CELERY_CONN_STR}"
+      PG_CONN_STR: "${PG_CONN_STR}"
+      REDIS_BACKEND: "${REDIS_BACKEND}"
+
+  add_task_2:
+    image: celery_celery
+    build:
+      context: .
+      network: host
+    # command: celery -A tasks worker --loglevel=info --logfile=tasks.log
+    command: celery -A proj worker -Q add_task -l info # --logfile=celeryapp.log
+    volumes: 
+      - .:/app
+    environment:
+      CELERY_CONN_STR: "${CELERY_CONN_STR}"
+      PG_CONN_STR: "${PG_CONN_STR}"
+      REDIS_BACKEND: "${REDIS_BACKEND}"

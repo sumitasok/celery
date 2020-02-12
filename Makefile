@@ -8,7 +8,7 @@ down:
 	docker-compose -f "docker-compose.yml" down
 
 up:
-	docker-compose -f "docker-compose.yml" up -d --build
+	docker-compose -f "docker-compose.yml" up
 
 flower:
 	docker run -it --rm --name celery_flower -p 7072:7072 celery_celery celery flower --broker=$(broker) --port=7072

@@ -6,9 +6,14 @@ from celery import Celery
 app = Celery('proj',
             # backend=os.environ['PG_CONN_STR'],
             # https://docs.celeryproject.org/en/latest/userguide/configuration.html#redis-backend-settings
-            backend='redis://192.168.0.102:6379/0',
+            backend=os.environ['REDIS_BACKEND'],
             broker=os.environ['CELERY_CONN_STR'],
             include=['proj.tasks'])
+
+CELERY_ROUTES = {
+    'core.tasks.xsum': {'queue': 'too_long_queue'},
+    'core.tasks.add': {'queue': 'quick_queue'},
+}
 
 # Optional configuration, see the application user guide.
 app.conf.update(
